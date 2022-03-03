@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block head %}
+<meta name="description" content="страница на которой вы можете зайти в профиль и начать генерировать музыку.">
+{% endblock %}
+{% block body %}
+<h5 class='center'>Привет, {{ user.username|default:'Гость' }}!
+<div>
+    {% if user.is_authenticated %}
+    Ты можешь скачать сгенерированную мелодию ниже или сгенерировать новую.
+    {% if reg %}
+    <br><br>Мелодия<br>
+    <div id='inst'>Инструмент - {{inst}}</div><br><br>
+    <a href="{{name1}}" class='btn waves-effect waves-light' id='link-download-music' download>скачать мелодию</a><br><br>
+    <div class='center'>
+        <button class="btn load-more waves-effect waves-light" id='load-more'>Следующая композиция</button>
+    </div>
+   {% endif %}
+    {% else %}
+    Сначала нужно войти, чтобы сгенерировать музыку.<br><br>
+    <a href="{% url 'login' %}">Войти</a>
+    {% endif %}
+</div>
+</h5>
+{% endblock %}
+
+
+{% block my-scripts %}
+{% if user.is_authenticated %}
+<script>
+$('#load-more').on('click', function(){
+$.ajax({
+  method: 'GET',
+  dataType: 'json',
+  url: '{% url "load-more-music" %}',
+  success: function(data){
+    let result = data['data']
+    $("#link-download-music").attr("href", '/static/' + result[0]['link-music'])
+    inst = 'Инструмент - ' + result[0]['inst']
+    $("#inst").text(inst)
+  }
+})
+})
+</script>
+{% endif %}
+{% endblock %}

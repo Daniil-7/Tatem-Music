@@ -1,0 +1,51 @@
+ <!DOCTYPE html>
+  <html>
+    <head>
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+      <title>{% block title %}Tatem Music{% endblock %}</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <style>
+          input{
+              color: #ffffff;
+          }
+      </style>
+      {% block head %}{% endblock %}
+    </head>
+    <body style='background-color: #1e293c;'>
+        <nav>
+    <div class="nav-wrapper" style='background-color: #324154;'>
+      <a href="{% url 'index' %}" class="flow-text">Tatem Music</a>
+      <ul id="nav-mobile" class="right">
+        <ul id="slide-out" class="sidenav" style='background-color: #324154;'>
+            <li><a class="subheader white-text">Разделы</a></li>
+            <li><a href="{% url 'index' %}" class="white-text">Главная</a></li>
+            <li><a href="{% url 'menu' %}" class="white-text">Меню</a></li>
+            <li><div class="divider"></div></li>
+            {% if user.is_authenticated %}
+            <li><a class="subheader white-text">Профиль</a></li>
+            <li><a href="{% url 'logout' %}" class="white-text">Выйти</a></li>
+            <li><a href="{% url 'password_change' %}" class="white-text">Сменить пароль</a></li>
+             {% else %}
+             <li><a class="subheader white-text">Профиль</a></li>
+             <li><a href="{% url 'login' %}" class="white-text">Войти</a></li>
+            {% endif %}
+        </ul>
+        <li><a href="#" data-target="slide-out" class="sidenav-trigger flow-text show-on-large"><i class="material-icons">menu</i></a></li>
+        {% block navbar %}{% endblock %}
+      </ul>
+    </div>
+  </nav>
+  <div class="container white-text">
+        {% block body %}{% endblock %}
+  </div>
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script>
+  $(document).ready(function(){
+    $('.sidenav').sidenav();
+  });
+  </script>
+{% block my-scripts %}{% endblock %}
+    </body>
+  </html>
