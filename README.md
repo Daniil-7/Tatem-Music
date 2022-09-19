@@ -45,6 +45,6 @@ SECRET_KEY = "ваш ключ"
 2. Django 4.0
 3. EasyMIDI 1.0
 ---
-## Примичание 
+## Примечание:
 1. [Ссылка на сайт проекта](https://tatem2.pythonanywhere.com)
 2. [Сайт портфолио](https://tatem.pythonanywhere.com)
